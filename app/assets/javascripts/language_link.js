@@ -4,11 +4,26 @@
       this.collection.on('reset', this.addAll, this);
       this.collection.on('add', this.addOne, this);
     },
+
+    render: function() {
+      this.addAll();
+    },
+    addAll: function(){
+      this.$el.empty();
+      this.collection.forEach(this.addOne, this);
+      return this;
+    },
+    addOne: function(person) {
+      var messageView = new MessageView({model: message});
+      this.$el.append(messageView.render().el);
+    }
     events : {
       "submit .new-message" : function(e) {
         e.preventDefault();
         newMessage = $('.new-message').val;
-        client
+        faye.publish("/messages/new", function(data) {
+          Chatroom.messages.reset(data);
+        });
       }
     }
   });
@@ -36,9 +51,9 @@
 
 (function () {
 
-  faye = new.Faye.Client("http://localhost:9292/faye");
+  window.faye = new.Faye.Client("http://localhost:9292/faye");
   faye.subscribe("/messages/new", function(data) {
-    //reset (data)
+    Chatroom.messages.reset(data);
   });
 });
 
