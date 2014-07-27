@@ -12,12 +12,25 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
 //= require_tree .
 //
-$(function() {
-  var = faye = new Faye.Client('http://localhost:9292/faye);
-  faye.subscribe("/messages/new", function (data) {
-    eval(data);
-  )};
+// $(function() {
+//   var faye = new Faye.Client('http://localhost:9292/faye');
+//   faye.subscribe("/messages/new", function (data) {
+//     eval(data);
+//   )};
+// });
+
+$(function(){ $(document).foundation(); });
+
+$('.postfix').on('click', function(e) {
+    console.log("hi");
+    e.preventDefault();
+    var newMess = $('.add-message').val();
+    $('.add-message').empty();
+    $('#chat').append('<li>' + newMess + '</li>');
+
+    return false;
 });

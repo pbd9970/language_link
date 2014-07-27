@@ -43,3 +43,5 @@ gem 'thin'
 gem 'faye'
 
 gem 'hirb'
+
+gem 'foundation-rails'

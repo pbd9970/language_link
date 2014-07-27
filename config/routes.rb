@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  get 'chatroom/index'
+  get 'chatroom/:id' => 'chatroom#show'
 
-  get 'chatroom/create'
+  post 'chatroom/:id/messages' => 'chatroom#create'
 
-  get 'chatroom/new'
+  # get 'chatroom/create'
 
-  get 'chatroom/destroy'
+  # get 'chatroom/new'
+
+  # get 'chatroom/destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
